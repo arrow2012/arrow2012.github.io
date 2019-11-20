@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-openresty" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/11/20/openresty/" class="article-date">
+  <time datetime="2019-11-20T07:17:36.200Z" itemprop="datePublished">2019-11-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/20/openresty/">openresty编译安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-部署依赖包"><a href="#1-部署依赖包" class="headerlink" title="1. 部署依赖包"></a>1. 部署依赖包</h3><h3 id="2-获取插件"><a href="#2-获取插件" class="headerlink" title="2. 获取插件"></a>2. 获取插件</h3><h3 id="3-配置目录环境变量"><a href="#3-配置目录环境变量" class="headerlink" title="3. 配置目录环境变量"></a>3. 配置目录环境变量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">$ app_dir=<span class="string">"/data/app/openresty"</span>  </span><br><span class="line">$ log_dir=<span class="string">"/data/logs"</span></span><br><span class="line">```   </span><br><span class="line"><span class="comment">### 4. 编译安装  </span></span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line">./configure --prefix=<span class="variable">$&#123;app_dir&#125;</span> \</span><br><span class="line">--modules-path=<span class="variable">$&#123;app_dir&#125;</span>/nginx/modules \</span><br><span class="line">--sbin-path=<span class="variable">$&#123;app_dir&#125;</span>/nginx/sbin/nginx \</span><br><span class="line">--conf-path=<span class="variable">$&#123;app_dir&#125;</span>/nginx/conf/nginx.conf \</span><br><span class="line">--error-log-path=<span class="variable">$&#123;log_dir&#125;</span>/nginx/error.log \</span><br><span class="line">--http-log-path=<span class="variable">$&#123;log_dir&#125;</span>/nginx/access.log \</span><br><span class="line">--pid-path=<span class="variable">$&#123;app_dir&#125;</span>/nginx/run/nginx.pid \</span><br><span class="line">--lock-path=<span class="variable">$&#123;app_dir&#125;</span>/nginx/lock/nginx.lock \</span><br><span class="line">--user=www \</span><br><span class="line">--group=www \</span><br><span class="line">--with-debug \</span><br><span class="line">--with-no-pool-patch \</span><br><span class="line">--with-http_iconv_module \</span><br><span class="line">--with-luajit \</span><br><span class="line">--with-select_module \</span><br><span class="line">--with-poll_module \</span><br><span class="line">--with-threads \</span><br><span class="line">--with-file-aio \</span><br><span class="line">--with-http_v2_module \</span><br><span class="line">--with-http_realip_module \</span><br><span class="line">--with-http_addition_module \</span><br><span class="line">--with-http_xslt_module \</span><br><span class="line">--with-http_xslt_module=dynamic \</span><br><span class="line">--with-http_image_filter_module \</span><br><span class="line">--with-http_image_filter_module=dynamic \</span><br><span class="line">--with-http_geoip_module \</span><br><span class="line">--with-http_geoip_module=dynamic \</span><br><span class="line">--with-http_sub_module \</span><br><span class="line">--with-http_dav_module \</span><br><span class="line">--with-http_flv_module \</span><br><span class="line">--with-http_mp4_module \</span><br><span class="line">--with-http_gunzip_module \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--with-http_auth_request_module \</span><br><span class="line">--with-http_random_index_module \</span><br><span class="line">--with-http_secure_link_module \</span><br><span class="line">--with-http_degradation_module \</span><br><span class="line">--with-http_slice_module \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--with-http_perl_module \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/nginx-upsync-module \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/nginx-stream-upsync-module \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/nginx-module-vts \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/nginx-http-user-agent \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/nginx_limit_speed_module \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/ModSecurity-nginx \</span><br><span class="line">--add-module=/usr/<span class="built_in">local</span>/src/ngx_http_dyups_module \</span><br><span class="line">--with-mail \</span><br><span class="line">--with-mail=dynamic \</span><br><span class="line">--with-mail_ssl_module \</span><br><span class="line">--with-stream \</span><br><span class="line">--with-stream=dynamic \</span><br><span class="line">--with-stream_ssl_module \</span><br><span class="line">--with-stream_realip_module \</span><br><span class="line">--with-stream_geoip_module \</span><br><span class="line">--with-stream_geoip_module=dynamic \</span><br><span class="line">--with-stream_ssl_preread_module \</span><br><span class="line">--with-google_perftools_module \</span><br><span class="line">--with-cpp_test_module \</span><br><span class="line">--with-http_ssl_module \</span><br><span class="line">--with-http_stub_status_module \</span><br><span class="line">--with-pcre</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/20/openresty/" data-id="ck36yfp8t000108urgtohdx36" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/20/openresty/">openresty编译安装</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
