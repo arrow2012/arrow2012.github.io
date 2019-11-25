@@ -11,7 +11,7 @@
 <p>增加一个goroutine 来检测本服务是否正常，如有问题，则给systemd 发送信号</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">    _, err := http.Get(<span class="string">"http://127.0.0.1:8081"</span>) <span class="comment">// ❸</span></span><br><span class="line">    <span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">        daemon.SdNotify(<span class="literal">false</span>, <span class="string">"WATCHDOG=1"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    time.Sleep(interval / <span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
 
-<p>检测本服务是否正常，如果有有正确响应，则发送watchdog keep-alive ，如果服务不可用 或者http.get() 有错误，systemd 就会出发重启</p>
+<p>检测本服务是否正常，如果有有正确响应，则发送watchdog keep-alive ，如果服务不可用 或者http.get() 有错误，systemd 就会触发重启</p>
 ]]></content>
       <categories>
         <category>linux</category>
